@@ -72,6 +72,10 @@ service Product {
     rpc Recommendations(RecommendationsRequestProduct) returns (RecommendationsResponse) {}
 }
 
+service Mailing {
+    rpc Partnership(PartnershipRequest) returns (PartnershipResponse) {}
+}
+
 message PushClickParams {
     string message_unique_key = 1;
     string button_unique_key = 2;
@@ -677,4 +681,24 @@ message RecommendationsResponse {
     int64 code = 3;
     repeated string data = 4;
     repeated Error errors = 5;
+}
+
+message PartnershipRequest {
+    PartnershipCustomer customer = 1;
+    PartnershipCustomerAction customer_action = 2;
+}
+
+message PartnershipCustomer {
+    string email = 1;
+}
+
+message PartnershipCustomerAction {
+    optional string custom_fields = 1; // json строка вида "{\"partnerName\":\"value\"}"
+}
+
+message PartnershipResponse {
+    string status = 1;
+    string message = 2;
+    int64 code = 3;
+    repeated Error errors = 4;
 }
